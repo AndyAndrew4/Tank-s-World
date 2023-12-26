@@ -9,7 +9,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.current_win_streak = 0
         self.top_win_streak = 0
-        self.best_attempts = float('inf')
+        self.best_attempts = float("inf")
 
         pygame.mixer.init()
         pygame.mixer.music.load("resources/a3be96e64e9ae64.mp3")
@@ -312,8 +312,6 @@ class Game:
             exp = False
         pass
 
-
-
     def play_game(game_instance, current_win_streak):
         number_to_guess = random.randint(1, 100)
         attempts = 0
@@ -336,7 +334,6 @@ class Game:
                     print("Новый рекорд!")
                 break
 
-
     def start_game(self):
         top_win_streak = 0
         current_win_streak = 0
@@ -349,10 +346,10 @@ class Game:
 
             choice = input("Ваш выбор: ")
 
-            if choice == '1':
+            if choice == "1":
                 self.play_game(game_instance, current_win_streak)
                 current_win_streak += 1
-            elif choice == '2':
+            elif choice == "2":
                 print("Спасибо за игру!")
                 break
             else:
