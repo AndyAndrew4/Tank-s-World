@@ -675,9 +675,6 @@ class Game:
         pass
 
     def you_win(self):
-        global current_win_streak
-        global top_win_streaks
-
         current_win_streak += 1
 
         top_win_streaks.append(current_win_streak)
