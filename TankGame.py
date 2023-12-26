@@ -124,7 +124,10 @@ class Game:
             self.game_layout_display, self.red, (x - 15, y + 20), self.whl_width
         )
         pygame.draw.circle(
-            self.game_layout_display, self.red, (x - 10, y + 20), self.whl_width
+            self.game_layout_display, self.
+
+Андрей МИРЭА БРО😎, [26.12.2023 11:07]
+red, (x - 10, y + 20), self.whl_width
         )
         pygame.draw.circle(
             self.game_layout_display, self.red, (x - 5, y + 20), self.whl_width
@@ -257,7 +260,10 @@ class Game:
         while paused:
             for event in pygame.event.get():
 
-                if event.type == pygame.QUIT:
+                if event.type == pygame.
+
+Андрей МИРЭА БРО😎, [26.12.2023 11:07]
+QUIT:
                     pygame.quit()
                     quit()
                 if event.type == pygame.KEYDOWN:
@@ -393,7 +399,10 @@ class Game:
                     pygame.quit()
                     quit()
 
-            self.game_layout_display.blit(self.background, (0, 0))
+            self.
+
+Андрей МИРЭА БРО😎, [26.12.2023 11:07]
+game_layout_display.blit(self.background, (0, 0))
             self.msg_screen("Top-3 Win Streaks", self.wheat, -100, size="medium")
 
             for i, streak in enumerate(self.top_win_streaks):
@@ -408,7 +417,9 @@ class Game:
         pass
 
     def game_over(self):
-
+        self.current_win_streak += 1
+        self.top_win_streaks.append(self.current_win_streak)
+        self.top_win_streaks = sorted(self.top_win_streaks, reverse=True)[:3]
         game_over = True
 
         while game_over:
@@ -439,10 +450,7 @@ class Game:
 
             self.clock.tick(15)
 
-        global current_win_streak
-        global top_win_streaks
         current_win_streak = 0
-
         current_win_streak += 1
 
         top_win_streaks.append(current_win_streak)
@@ -538,7 +546,8 @@ class Game:
                 check_y_1 = startShell[1] <= self.display_height
                 check_y_2 = startShell[1] >= self.display_height - ranHeight
 
-                if check_x_1 and check_x_2 and check_y_1 and check_y_2:
+Андрей МИРЭА БРО😎, [26.12.2023 11:07]
+if check_x_1 and check_x_2 and check_y_1 and check_y_2:
                     hit_x = int((startShell[0]))
                     hit_y = int(startShell[1])
                     self.explosion(hit_x, hit_y)
@@ -632,14 +641,13 @@ class Game:
         pass
 
     def you_win(self):
-        global current_win_streak
-        global top_win_streaks
-
+        
         current_win_streak += 1
 
         top_win_streaks.append(current_win_streak)
         top_win_streaks = sorted(top_win_streaks, reverse=True)[:3]
-        self.save_win_streaks(top_win_streaks)
+        self.save_win_streaks()
+        self.current_win_streak = 0
 
         win = True
 
@@ -653,7 +661,8 @@ class Game:
             self.msg_screen("You won!", self.white, -100, size="large")
             self.msg_screen("Congratulations!", self.wheat, -30)
 
-            # Кнопки для выбора дальнейших действий
+Андрей МИРЭА БРО😎, [26.12.2023 11:07]
+# Кнопки для выбора дальнейших действий
             self.btn(
                 "Play again",
                 150,
@@ -792,7 +801,9 @@ class Game:
 
                         if event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_p:
-                                self.gameLoop()
+
+Андрей МИРЭА БРО😎, [26.12.2023 11:07]
+self.gameLoop()
                             elif event.key == pygame.K_ESCAPE:
 
                                 gExit = True
@@ -899,7 +910,9 @@ class Game:
                         changeTurs = 0
 
                     if event.key == pygame.K_a or event.key == pygame.K_d:
-                        p_change = 0
+
+Андрей МИРЭА БРО😎, [26.12.2023 11:07]
+p_change = 0
 
             self.game_layout_display.blit(self.background, (0, 0))
 
@@ -953,3 +966,5 @@ class Game:
 
 
 game_instance = Game()
+game_instance.game_intro()
+game_instance.game_loop()
