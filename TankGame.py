@@ -126,7 +126,6 @@ class Game:
         pygame.draw.circle(
             self.game_layout_display, self.
 
-Андрей МИРЭА БРО😎, [26.12.2023 11:07]
 red, (x - 10, y + 20), self.whl_width
         )
         pygame.draw.circle(
@@ -262,7 +261,6 @@ red, (x - 10, y + 20), self.whl_width
 
                 if event.type == pygame.
 
-Андрей МИРЭА БРО😎, [26.12.2023 11:07]
 QUIT:
                     pygame.quit()
                     quit()
@@ -400,8 +398,7 @@ QUIT:
                     quit()
 
             self.
-
-Андрей МИРЭА БРО😎, [26.12.2023 11:07]
+            
 game_layout_display.blit(self.background, (0, 0))
             self.msg_screen("Top-3 Win Streaks", self.wheat, -100, size="medium")
 
@@ -546,7 +543,6 @@ game_layout_display.blit(self.background, (0, 0))
                 check_y_1 = startShell[1] <= self.display_height
                 check_y_2 = startShell[1] >= self.display_height - ranHeight
 
-Андрей МИРЭА БРО😎, [26.12.2023 11:07]
 if check_x_1 and check_x_2 and check_y_1 and check_y_2:
                     hit_x = int((startShell[0]))
                     hit_y = int(startShell[1])
@@ -660,8 +656,7 @@ if check_x_1 and check_x_2 and check_y_1 and check_y_2:
             self.game_layout_display.blit(self.background, (0, 0))
             self.msg_screen("You won!", self.white, -100, size="large")
             self.msg_screen("Congratulations!", self.wheat, -30)
-
-Андрей МИРЭА БРО😎, [26.12.2023 11:07]
+            
 # Кнопки для выбора дальнейших действий
             self.btn(
                 "Play again",
@@ -802,7 +797,6 @@ if check_x_1 and check_x_2 and check_y_1 and check_y_2:
                         if event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_p:
 
-Андрей МИРЭА БРО😎, [26.12.2023 11:07]
 self.gameLoop()
                             elif event.key == pygame.K_ESCAPE:
 
@@ -911,7 +905,6 @@ self.gameLoop()
 
                     if event.key == pygame.K_a or event.key == pygame.K_d:
 
-Андрей МИРЭА БРО😎, [26.12.2023 11:07]
 p_change = 0
 
             self.game_layout_display.blit(self.background, (0, 0))
