@@ -8,7 +8,8 @@ class Game:
         pygame.init()
         self.clock = pygame.time.Clock()
         self.current_win_streak = 0
-        self.top_win_streaks = self.load_win_streaks()
+        self.top_win_streak = 0
+        self.best_attempts = float('inf')
 
         pygame.mixer.init()
         pygame.mixer.music.load("resources/a3be96e64e9ae64.mp3")
@@ -124,9 +125,7 @@ class Game:
             self.game_layout_display, self.red, (x - 15, y + 20), self.whl_width
         )
         pygame.draw.circle(
-            self.game_layout_display, self.
-
-red, (x - 10, y + 20), self.whl_width
+            self.game_layout_display, self.red, (x - 10, y + 20), self.whl_width
         )
         pygame.draw.circle(
             self.game_layout_display, self.red, (x - 5, y + 20), self.whl_width
@@ -259,9 +258,7 @@ red, (x - 10, y + 20), self.whl_width
         while paused:
             for event in pygame.event.get():
 
-                if event.type == pygame.
-
-QUIT:
+                if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
                 if event.type == pygame.KEYDOWN:
@@ -313,6 +310,53 @@ QUIT:
                 self.clock.tick(100)
 
             exp = False
+        pass
+
+
+
+    def play_game(game_instance, current_win_streak):
+        number_to_guess = random.randint(1, 100)
+        attempts = 0
+
+        while True:
+            guess = int(input("Guess the number (1-100): "))
+            attempts += 1
+
+            if guess < number_to_guess:
+                print("Слишком низко! Попробуйте снова.")
+            elif guess > number_to_guess:
+                print("Слишком высоко! Попробуйте снова.")
+            else:
+                print(f"Поздравляем!")
+                if attempts < game_instance.best_attempts:
+                    game_instance.best_attempts = attempts
+                    print("Новая лучшая попытка!")
+                if current_win_streak > game_instance.top_win_streak:
+                    game_instance.top_win_streak = current_win_streak
+                    print("Новый рекорд!")
+                break
+
+
+    def start_game(self):
+        top_win_streak = 0
+        current_win_streak = 0
+        game_instance = Game()
+
+        while True:
+            print("Добро пожаловать в Мир Танков!")
+            print("1. Играть")
+            print("2. Выйти")
+
+            choice = input("Ваш выбор: ")
+
+            if choice == '1':
+                self.play_game(game_instance, current_win_streak)
+                current_win_streak += 1
+            elif choice == '2':
+                print("Спасибо за игру!")
+                break
+            else:
+                print("Выбор неправильный! Выберите снова!")
         pass
 
     def playerfireShell(
@@ -397,9 +441,7 @@ QUIT:
                     pygame.quit()
                     quit()
 
-            self.
-            
-game_layout_display.blit(self.background, (0, 0))
+            self.game_layout_display.blit(self.background, (0, 0))
             self.msg_screen("Top-3 Win Streaks", self.wheat, -100, size="medium")
 
             for i, streak in enumerate(self.top_win_streaks):
@@ -414,9 +456,7 @@ game_layout_display.blit(self.background, (0, 0))
         pass
 
     def game_over(self):
-        self.current_win_streak += 1
-        self.top_win_streaks.append(self.current_win_streak)
-        self.top_win_streaks = sorted(self.top_win_streaks, reverse=True)[:3]
+
         game_over = True
 
         while game_over:
@@ -448,10 +488,11 @@ game_layout_display.blit(self.background, (0, 0))
             self.clock.tick(15)
 
         current_win_streak = 0
+
         current_win_streak += 1
 
-        top_win_streaks.append(current_win_streak)
-        top_win_streaks = sorted(top_win_streaks, reverse=True)[:3]
+        self.top_win_streaks.append(current_win_streak)
+        top_win_streaks = sorted(self.top_win_streaks, reverse=True)[:3]
 
         win = True
 
@@ -543,7 +584,7 @@ game_layout_display.blit(self.background, (0, 0))
                 check_y_1 = startShell[1] <= self.display_height
                 check_y_2 = startShell[1] >= self.display_height - ranHeight
 
-if check_x_1 and check_x_2 and check_y_1 and check_y_2:
+                if check_x_1 and check_x_2 and check_y_1 and check_y_2:
                     hit_x = int((startShell[0]))
                     hit_y = int(startShell[1])
                     self.explosion(hit_x, hit_y)
@@ -637,13 +678,14 @@ if check_x_1 and check_x_2 and check_y_1 and check_y_2:
         pass
 
     def you_win(self):
-        
+        global current_win_streak
+        global top_win_streaks
+
         current_win_streak += 1
 
         top_win_streaks.append(current_win_streak)
         top_win_streaks = sorted(top_win_streaks, reverse=True)[:3]
-        self.save_win_streaks()
-        self.current_win_streak = 0
+        self.save_win_streaks(top_win_streaks)
 
         win = True
 
@@ -656,8 +698,8 @@ if check_x_1 and check_x_2 and check_y_1 and check_y_2:
             self.game_layout_display.blit(self.background, (0, 0))
             self.msg_screen("You won!", self.white, -100, size="large")
             self.msg_screen("Congratulations!", self.wheat, -30)
-            
-# Кнопки для выбора дальнейших действий
+
+            # Кнопки для выбора дальнейших действий
             self.btn(
                 "Play again",
                 150,
@@ -796,8 +838,7 @@ if check_x_1 and check_x_2 and check_y_1 and check_y_2:
 
                         if event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_p:
-
-self.gameLoop()
+                                self.gameLoop()
                             elif event.key == pygame.K_ESCAPE:
 
                                 gExit = True
@@ -904,8 +945,7 @@ self.gameLoop()
                         changeTurs = 0
 
                     if event.key == pygame.K_a or event.key == pygame.K_d:
-
-p_change = 0
+                        p_change = 0
 
             self.game_layout_display.blit(self.background, (0, 0))
 
@@ -958,6 +998,6 @@ p_change = 0
         pass
 
 
-game_instance = Game()
-game_instance.game_intro()
-game_instance.game_loop()
+if __name__ == "__main__":
+    game = Game()
+    game.start_game()
